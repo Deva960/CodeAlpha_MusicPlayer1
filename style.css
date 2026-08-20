@@ -1,0 +1,317 @@
+:root{
+  --ink:#0d0c0e;
+  --panel:#17151a;
+  --groove:#232028;
+  --brass:#c9a15a;
+  --brass-dim:#8a744b;
+  --paper:#eee7db;
+  --paper-dim:#a89f8f;
+  --wire:#3a3540;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(1200px 800px at 50% -10%, #201c24 0%, var(--ink) 60%);
+  font-family: Georgia, 'Times New Roman', serif;
+  color:var(--paper);
+  padding:32px 16px;
+}
+
+.deck{
+  width:420px;
+  max-width:100%;
+  background:linear-gradient(160deg, #1c1a20, #121014);
+  border-radius:18px;
+  padding:26px 26px 22px;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.55),
+    inset 0 1px 0 rgba(255,255,255,.04),
+    inset 0 0 0 1px rgba(255,255,255,.03);
+  position:relative;
+}
+
+.brand{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
+.brand .name{
+  font-size:13px;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  color:var(--brass);
+}
+.brand .tag{
+  font-family: 'Courier New', monospace;
+  font-size:10px;
+  letter-spacing:.15em;
+  color:var(--paper-dim);
+}
+
+/* --- Turntable --- */
+.stage{
+  position:relative;
+  height:200px;
+  margin-bottom:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.platter{
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  background:
+    repeating-radial-gradient(circle at 50% 50%,
+      var(--groove) 0px, var(--groove) 2px,
+      #1a171d 3px, #1a171d 4px);
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.6),
+    inset 0 0 0 6px #0d0c0e,
+    inset 0 0 0 8px #2a262e;
+  position:relative;
+  animation: spin 6s linear infinite;
+  animation-play-state: paused;
+}
+.platter.spinning{ animation-play-state: running; }
+
+.label{
+  position:absolute;
+  top:50%; left:50%;
+  width:78px; height:78px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background: radial-gradient(circle at 35% 30%, #d8b878, var(--brass) 55%, var(--brass-dim) 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.25);
+}
+.label span{
+  font-size:9px;
+  letter-spacing:.08em;
+  color:#1c1408;
+  line-height:1.3;
+  padding:0 8px;
+}
+.spindle{
+  position:absolute; top:50%; left:50%;
+  width:8px; height:8px; border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:#0d0c0e;
+  box-shadow: 0 0 0 2px var(--ink);
+}
+
+.tonearm{
+  position:absolute;
+  top:6px; right:18px;
+  width:96px; height:96px;
+  transform-origin: 88px 8px;
+  transform: rotate(-18deg);
+  transition: transform .5s cubic-bezier(.4,0,.2,1);
+  pointer-events:none;
+}
+.tonearm.down{ transform: rotate(6deg); }
+.tonearm svg{ overflow:visible; }
+
+@keyframes spin{ to{ transform: rotate(360deg); } }
+
+/* --- Track info --- */
+.meta{
+  text-align:center;
+  margin-bottom:16px;
+}
+.meta .title{
+  font-size:19px;
+  font-weight:700;
+  color:var(--paper);
+  margin:0 0 3px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.meta .artist{
+  font-family:'Courier New', monospace;
+  font-size:11.5px;
+  letter-spacing:.08em;
+  color:var(--brass);
+  text-transform:uppercase;
+}
+
+/* --- Progress --- */
+.progress-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:20px;
+  font-family:'Courier New', monospace;
+  font-size:11px;
+  color:var(--paper-dim);
+}
+.bar{
+  flex:1;
+  height:4px;
+  background:var(--wire);
+  border-radius:2px;
+  position:relative;
+  cursor:pointer;
+}
+.bar-fill{
+  position:absolute; top:0; left:0; height:100%;
+  background:linear-gradient(90deg, var(--brass-dim), var(--brass));
+  border-radius:2px;
+  width:0%;
+}
+.bar-knob{
+  position:absolute; top:50%; left:0%;
+  width:11px; height:11px; border-radius:50%;
+  background:var(--brass);
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 0 3px rgba(201,161,90,.18);
+}
+
+/* --- Controls --- */
+.controls{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
+  margin-bottom:22px;
+}
+.ctrl-btn{
+  background:none;
+  border:none;
+  color:var(--paper);
+  cursor:pointer;
+  opacity:.75;
+  transition:opacity .2s, transform .15s;
+  padding:4px;
+}
+.ctrl-btn:hover{ opacity:1; }
+.ctrl-btn:active{ transform:scale(.9); }
+.ctrl-btn:focus-visible{ outline:2px solid var(--brass); outline-offset:3px; border-radius:4px;}
+
+.play-btn{
+  width:56px; height:56px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #dcb878, var(--brass) 60%, var(--brass-dim) 100%);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 8px 18px rgba(0,0,0,.4);
+  color:#1c1408;
+  opacity:1;
+}
+.play-btn svg{ width:20px; height:20px; }
+
+/* --- Volume --- */
+.volume-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:20px;
+}
+.volume-row svg{ color:var(--paper-dim); flex-shrink:0; width:16px; height:16px;}
+.vol-bar{
+  flex:1; height:4px; background:var(--wire); border-radius:2px; position:relative; cursor:pointer;
+}
+.vol-fill{
+  position:absolute; top:0; left:0; height:100%; width:70%;
+  background:var(--paper-dim); border-radius:2px;
+}
+.vol-knob{
+  position:absolute; top:50%; left:70%; width:9px; height:9px; border-radius:50%;
+  background:var(--paper); transform:translate(-50%,-50%);
+}
+
+/* --- Options row --- */
+.options{
+  display:flex;
+  justify-content:center;
+  gap:22px;
+  margin-bottom:16px;
+  font-family:'Courier New', monospace;
+  font-size:10px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.opt{
+  display:flex; align-items:center; gap:6px;
+  color:var(--paper-dim);
+  cursor:pointer;
+  user-select:none;
+}
+.opt.active{ color:var(--brass); }
+.dot{
+  width:7px; height:7px; border-radius:50%;
+  background:var(--wire);
+}
+.opt.active .dot{ background:var(--brass); box-shadow:0 0 6px var(--brass); }
+
+/* --- Playlist --- */
+.playlist{
+  border-top:1px solid var(--wire);
+  padding-top:12px;
+  max-height:150px;
+  overflow-y:auto;
+}
+.track{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 6px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:background .15s;
+}
+.track:hover{ background:rgba(255,255,255,.04); }
+.track.playing{ background:rgba(201,161,90,.1); }
+.track .num{
+  font-family:'Courier New', monospace;
+  font-size:10px;
+  color:var(--paper-dim);
+  width:14px;
+}
+.track.playing .num{ color:var(--brass); }
+.track .info{ flex:1; min-width:0; }
+.track .t-title{
+  font-size:13px; color:var(--paper);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.track .t-artist{
+  font-family:'Courier New', monospace;
+  font-size:9.5px; color:var(--paper-dim);
+  text-transform:uppercase; letter-spacing:.06em;
+}
+.track .t-dur{
+  font-family:'Courier New', monospace;
+  font-size:10px; color:var(--paper-dim);
+  white-space:nowrap;
+}
+.eq{ display:flex; gap:2px; align-items:flex-end; height:12px; width:12px;}
+.eq span{
+  width:2px; background:var(--brass); border-radius:1px;
+  animation:eqbounce 1s ease-in-out infinite;
+}
+.eq span:nth-child(1){ animation-delay:0s; }
+.eq span:nth-child(2){ animation-delay:.2s; }
+.eq span:nth-child(3){ animation-delay:.4s; }
+@keyframes eqbounce{
+  0%,100%{ height:3px; }
+  50%{ height:12px; }
+}
+
+.playlist::-webkit-scrollbar{ width:4px; }
+.playlist::-webkit-scrollbar-thumb{ background:var(--wire); border-radius:2px; }
+
+@media (prefers-reduced-motion: reduce){
+  .platter{ animation:none !important; }
+  .tonearm{ transition:none !important; }
+  .eq span{ animation:none !important; height:6px; }
+}

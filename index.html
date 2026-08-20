@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sonder — Music Player</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="deck">
+  <div class="brand">
+    <span class="name">Sonder</span>
+    <span class="tag">SIDE&nbsp;A</span>
+  </div>
+
+  <div class="stage">
+    <div class="platter" id="platter">
+      <div class="label" id="discLabel"><span id="discText">—</span></div>
+      <div class="spindle"></div>
+    </div>
+    <div class="tonearm" id="tonearm">
+      <svg width="96" height="96" viewBox="0 0 96 96">
+        <circle cx="88" cy="8" r="7" fill="#2a262e" stroke="#c9a15a" stroke-width="1.5"/>
+        <line x1="88" y1="8" x2="18" y2="70" stroke="#c9a15a" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="18" cy="70" r="4" fill="#c9a15a"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="meta">
+    <p class="title" id="trackTitle">Loading…</p>
+    <p class="artist" id="trackArtist">—</p>
+  </div>
+
+  <div class="progress-row">
+    <span id="curTime">0:00</span>
+    <div class="bar" id="seekBar" role="slider" aria-label="Seek" tabindex="0">
+      <div class="bar-fill" id="seekFill"></div>
+      <div class="bar-knob" id="seekKnob"></div>
+    </div>
+    <span id="durTime">0:00</span>
+  </div>
+
+  <div class="controls">
+    <button class="ctrl-btn" id="prevBtn" aria-label="Previous track" title="Previous">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+    </button>
+    <button class="ctrl-btn play-btn" id="playBtn" aria-label="Play">
+      <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+    </button>
+    <button class="ctrl-btn" id="nextBtn" aria-label="Next track" title="Next">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM6 6l8.5 6L6 18z"/></svg>
+    </button>
+  </div>
+
+  <div class="volume-row">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2A4.5 4.5 0 0015 8.03v7.94A4.5 4.5 0 0016.5 12z"/></svg>
+    <div class="vol-bar" id="volBar" role="slider" aria-label="Volume" tabindex="0">
+      <div class="vol-fill" id="volFill"></div>
+      <div class="vol-knob" id="volKnob"></div>
+    </div>
+  </div>
+
+  <div class="options">
+    <div class="opt" id="shuffleOpt"><span class="dot"></span>Shuffle</div>
+    <div class="opt active" id="autoplayOpt"><span class="dot"></span>Autoplay</div>
+    <div class="opt" id="repeatOpt"><span class="dot"></span>Repeat</div>
+  </div>
+
+  <div class="playlist" id="playlist"></div>
+</div>
+
+<audio id="audio" preload="metadata"></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
